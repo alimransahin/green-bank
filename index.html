@@ -18,11 +18,99 @@
             <button id="login" class="btn btn-success">Enter</button>
         </div>
     </div>
+    <div id="trans-area">
+          <div class="disply row row-cols-1 row-cols-md-3 g-4">
+            <div class="col">
+              <div class="card card-1">
+                <div class="card-body">
+                  <h5 class="card-title">Deposit</h5>
+                  <h1>$ <span id="currentDeposit">00</span></h1>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card card-2">
+                <div class="card-body">
+                  <h5 class="card-title">Withdraw</h5>
+                  <h1>$ <span id="currentWithdraw">00</span></h1>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card card-3">
+                <div class="card-body">
+                    <h5 class="card-title">Balance</h5>
+                    <h1>$ <span id="currentBalance">00</span></h1>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row row-cols-1 row-cols-md-2 g-2">
+            <div class="col">
+              <div class="card submit-area">
+                <div class="card-body p-5">
+                  <h2>Deposit</h2>
+                    <input type="text" id="depositAmount" class="form-control" placeholder="$ amount you want to deposit"><br>
+                    <button id="deposit" class="btn btn-success">Deposit</button>
+                </div>
+              </div>
+            </div>
+            <div class="col">
+              <div class="card submit-area">
+                <div class="card-body p-5">
+                    <h2>Withdraw</h2>
+                    <input type="text" id="withdrawAmount" class="form-control" placeholder="$ amount you want to withdraw"><br>
+                    <button id="withdraw" class="btn btn-success">Withdraw</button>
+                </div>
+              </div>
+            </div>
+          </div>
 </body>
 <script>
+    //login
     const loginBtn=document.getElementById("login");
     loginBtn.addEventListener("click", function(){
-        alert("hi! Green Bank")
+        const loginArea=document.getElementById("login-area");
+        loginArea.style.display="none";
+        const transArea=document.getElementById("trans-area");
+        transArea.style.display="block";
     })
+
+    //deposit
+
+    const depositBtn=document.getElementById("deposit");
+    depositBtn.addEventListener("click", function(){
+
+    const depositAmount=document.getElementById("depositAmount").value;
+    const depositNum= parseFloat(depositAmount);
+
+    updateAmount("currentDeposit",depositNum);
+    updateAmount("currentBalance",depositNum);
+
+    document.getElementById("depositAmount").value="";
+
+    })
+
+    //withdraw
+
+    const withdrawBtn=document.getElementById("withdraw");
+    withdrawBtn.addEventListener("click", function(){
+
+    const withdrawAmount=document.getElementById("withdrawAmount").value;
+    const withdrawNum= parseFloat(withdrawAmount);
+
+    updateAmount("currentWithdraw",withdrawNum);
+    updateAmount("currentBalance",-1*withdrawNum);
+    document.getElementById("withdrawAmount").value="";
+   
+    })
+
+    function updateAmount(id,depositNum){
+    const current=document.getElementById(id).innerText;
+    const currentNum= parseFloat(current);
+    const totalAmount=currentNum+depositNum;
+    document.getElementById(id).innerText=totalAmount;
+    }
+
 </script>
 </html>
